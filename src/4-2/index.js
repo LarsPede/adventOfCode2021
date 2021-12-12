@@ -1,6 +1,7 @@
 import {boards, draw} from '../../data/fourth.js';
 
 let checkedBoards = [];
+let winnerBoards = [];
 for(let i = 0; i<boards.length; i++) {
   checkedBoards[i] = [
     [false, false, false, false, false],
@@ -9,6 +10,7 @@ for(let i = 0; i<boards.length; i++) {
     [false, false, false, false, false],
     [false, false, false, false, false]
   ];
+  winnerBoards[i] = false;
 };
 
 let returnVal = null
@@ -25,12 +27,10 @@ const markBoards = (number) => {
   });
 }
 const checkWinner = () => {
-  let winner = null; 
   for(let [boardIndex, board] of checkedBoards.entries()) {
     for(let row of board) {
       if (row.every(val => val === true)) {
-        winner = boardIndex;
-        break;
+        winnerBoards[boardIndex] = true;
       }
     };
     if (
@@ -39,13 +39,11 @@ const checkWinner = () => {
       board.every(row => row[2] === true) ||
       board.every(row => row[3] === true) ||
       board.every(row => row[4] === true) ||
-      winner !== null
+      winnerBoards[boardIndex]
     ) {
-      winner = boardIndex;
-      break;
+      winnerBoards[boardIndex] = true;
     }
   };
-  return winner;
 }
 const calcWinner = (boardNum, drawnNum) => {
   let sum = 0;
@@ -58,12 +56,15 @@ const calcWinner = (boardNum, drawnNum) => {
   });
   return sum*drawnNum;
 }
-
+let lastWinnerBoard = null;
 for(const num of draw) {
   markBoards(num);
-  const winner = checkWinner();
-  if (winner) {
-    returnVal = calcWinner(winner, num);
+  checkWinner();
+  if (winnerBoards.filter(val => val === false).length === 1 && lastWinnerBoard === null) {
+    lastWinnerBoard = winnerBoards.indexOf(false);
+  }
+  if (winnerBoards.filter(val => val === false).length === 0) {
+    returnVal = calcWinner(lastWinnerBoard, num);
     break;
   }
 };
