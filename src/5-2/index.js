@@ -45,6 +45,27 @@ lines.forEach(line => {
     for (let i=0; i<=xSpan; i++) {
       grid[offset+i][firstY]++; // grid[2+0,2+1,2+2][3]
     }
+  // diagonal
+  } else {
+    // 1,2 -> 2,3
+    if (firstX - secondX === firstY - secondY) { // -1 === -1
+      xOffset = firstX > secondX ? secondX : firstX; // 1 > 2 = 1
+      yOffset = firstY > secondY ? secondY : firstY; // 2 > 3 = 2
+      
+      const span = Math.abs(firstX-secondX); // abs(1-2) = 1
+      
+      for (let i=0; i<=span; i++) {
+        grid[xOffset+i][yOffset+i]++; // grid[1+0,1+1][2+0,2+1]
+      }
+    // 6,10 -> 8,8
+    } else {
+      const span = Math.abs(firstX-secondX); // abs(8-6) = 2
+      xOffset = firstX > secondX ? firstX : secondX; // 8
+      yOffset = firstX > secondX ? firstY : secondY; // 8
+      for (let i=0; i<=span; i++) {
+        grid[xOffset-i][yOffset+i]++; // grid[8-0,8-1,8-2][8+0,8+1,8+2]
+      }
+    }
   }
 })
 
