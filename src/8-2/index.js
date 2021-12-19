@@ -54,6 +54,8 @@ puzzleVals.forEach(([inputs, outputs]) => {
       case 6:
         if (digits[4].every(x => splitDigit.includes(x))) {
           outputDigit = `${outputDigit}9`;
+        } else if (digits[1].every(x => splitDigit.includes(x))) {
+          outputDigit = `${outputDigit}0`;
         } else {
           outputDigit = `${outputDigit}6`;
         }
