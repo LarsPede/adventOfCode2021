@@ -1,7 +1,5 @@
 import {puzzleInput} from '../../data/eight.js';
 
-//Broken. no clue why though.
-
 const puzzleVals = puzzleInput.map(puzzleVal => puzzleVal.split('|'));
 
 let count = 0;
