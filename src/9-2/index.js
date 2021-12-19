@@ -2,7 +2,10 @@ import {puzzleInput} from '../../data/nine.js';
 
 const heightMap = puzzleInput.map(input => input.split('').map(val => parseInt(val, 10)));
 
-const lowPoints = Array(10).fill(0);
+const rowMax = heightMap.length-1;
+const colMax = heightMap[0].length-1;
+
+const lowPoints = [];
 
 heightMap.forEach((heights, rowIndex) => {
   heights.forEach((point, pointIndex) => {
@@ -32,11 +35,21 @@ heightMap.forEach((heights, rowIndex) => {
       point < left &&
       point < right
     ) {
-      lowPoints[point]++;
+      lowPoints.push({row: rowIndex, col: pointIndex});
     }
   })
 });
 
-const sumRiskScore = lowPoints.reduce((sum, numOfPoints, index) => sum += numOfPoints*index+numOfPoints, 0);
+const checkAndAddNeighbours = (points, alreadyCheckedNodes) => {
+  points.forEach(point => {
+  })
+}
 
-console.log('result ', sumRiskScore);
+lowPoints.forEach(point => {
+  const checkedNodes = [];
+  const nodesToCheck = [point];
+  const amount = checkAndAddNeighbours(nodesToCheck, checkedNodes);
+
+});
+
+console.log('result ', lowPoints);
