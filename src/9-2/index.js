@@ -41,15 +41,48 @@ heightMap.forEach((heights, rowIndex) => {
 });
 
 const checkAndAddNeighbours = (points, alreadyCheckedNodes) => {
+  const sum = 0;
   points.forEach(point => {
+    console.log(point);
+    alreadyCheckedNodes.push(`${point.row}-${point.col}`);
+    const newPoints = [];
+    //up
+    if (point.row !== 0) {
+      if (!alreadyCheckedNodes.includes(x => x === `${point.row-1}-${point.col}`) && heightMap[point.row-1][point.col] !== 9) {
+        newPoints.push({row: point.row-1, col: point.col});
+      }
+    }
+    //left
+    if (point.col !== 0) {
+      if (!alreadyCheckedNodes.includes(x => x === `${point.row}-${point.col-1}`) && heightMap[point.row][point.col-1] !== 9) {
+        newPoints.push({row: point.row, col: point.col-1});
+      }
+    }
+    //down
+    if (point.row !== rowMax) {
+      if (!alreadyCheckedNodes.includes(x => x === `${point.row+1}-${point.col}`) && heightMap[point.row+1][point.col] !== 9) {
+        newPoints.push({row: point.row+1, col: point.col});
+      }
+    }//right
+    if (point.col !== colMax) {
+      if (!alreadyCheckedNodes.includes(x => x === `${point.row}-${point.col+1}`) && heightMap[point.row][point.col+1] !== 9) {
+        newPoints.push({row: point.row, col: point.col+1});
+      }
+    }
+    if (newPoints.length) {
+      sum+=1+checkAndAddNeighbours(newPoints, alreadyCheckedNodes);
+    } else {
+      sum++;
+    }
   })
+  return sum;
 }
 
 lowPoints.forEach(point => {
   const checkedNodes = [];
   const nodesToCheck = [point];
   const amount = checkAndAddNeighbours(nodesToCheck, checkedNodes);
-
+  console.log(amount)
 });
 
-console.log('result ', lowPoints);
+//console.log('result ', lowPoints);
