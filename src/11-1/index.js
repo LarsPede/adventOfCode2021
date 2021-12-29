@@ -1,5 +1,21 @@
-import {puzzleInput} from '../../data/tenth.js';
+import {puzzleInput} from '../../data/eleventh.js';
 
-const subsystem = puzzleInput.map((i) => i.split(''));
+const octopussLines = puzzleInput.map((i) => i.split(''));
 
-console.log('hello');
+let sparkles = 0;
+
+const rounds = 1;
+
+for(let i = 0; i < rounds; i++) {
+  octopussLines.forEach((octopusses, lineIndex) => {
+    octopusses.forEach((octopus, octoIndex) => {
+      if (octopus > 9) {
+        sparkles++;
+        if ()
+
+      }
+    })
+  })
+}
+
+console.log();
