@@ -3,10 +3,9 @@ import {puzzleInput} from '../../data/eleventh.js';
 const octopussLines = puzzleInput.map((i) => i.split('').map(str => parseInt(str)));
 
 let sparkles = 0;
+let allFlash = 0;
 
-const rounds = 100;
-
-for(let i = 0; i < rounds; i++) {
+for(let i = 0; i < Infinity; i++) {
   octopussLines.forEach((octopusses, ind) => {
     octopusses.forEach((_, idx) => {
       octopussLines[ind][idx]++;
@@ -72,6 +71,10 @@ for(let i = 0; i < rounds; i++) {
       });
     });
   }
+  if (octopussLines.every(octopusses => octopusses.every(octopus => octopus > 9))) {
+    allFlash = i+1;
+    break;
+  };
   octopussLines.forEach((octopusses, ind) => {
     octopusses.forEach((_, idx) => {
       if (octopussLines[ind][idx] > 9) {
@@ -81,3 +84,4 @@ for(let i = 0; i < rounds; i++) {
   });
 }
 console.log(sparkles);
+console.log(allFlash);
